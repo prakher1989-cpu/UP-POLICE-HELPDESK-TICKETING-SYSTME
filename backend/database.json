@@ -1,0 +1,91 @@
+{
+  "tickets": [
+    {
+      "id": "TKT-1001",
+      "title": "CCTV feed down at Sector 4 Junction",
+      "description": "The primary camera feed at Sector 4 chowraha is offline since morning. Appears to be a power or fiber cut issue.",
+      "category": "Surveillance",
+      "priority": "High",
+      "status": "Open",
+      "assignedTo": "Inspector Sharma",
+      "createdAt": "2026-07-02T10:15:00Z",
+      "updatedAt": "2026-07-02T10:15:00Z"
+    },
+    {
+      "id": "TKT-1002",
+      "title": "Biometric login failure in PCR Control Room",
+      "description": "Multiple officers unable to log in to the biometric system for their shifts. Fingerprint reader is not responding.",
+      "category": "Hardware",
+      "priority": "Critical",
+      "status": "In Progress",
+      "assignedTo": "Saurabh singh",
+      "createdAt": "2026-07-02T11:00:00Z",
+      "updatedAt": "2026-07-02T11:30:00Z"
+    },
+    {
+      "id": "TKT-1003",
+      "title": "Slow internet connectivity in SP Office",
+      "description": "Internet connection is running below 5 Mbps, affecting document uploading on the central portal.",
+      "category": "Network",
+      "priority": "Medium",
+      "status": "Open",
+      "assignedTo": "Tech Support Team",
+      "createdAt": "2026-07-02T12:45:00Z",
+      "updatedAt": "2026-07-02T12:45:00Z"
+    },
+    {
+      "id": "TKT-1004",
+      "title": "UP Cop App sync issues on official mobile devices",
+      "description": "Patrolling team reporting that FIR data is not syncing back to the central server from their field tablets.",
+      "category": "Software",
+      "priority": "High",
+      "status": "Resolved",
+      "resolvedBy": "Deepak Shukla",
+      "createdAt": "2026-07-01T09:30:00Z",
+      "updatedAt": "2026-07-02T15:20:00Z"
+    },
+    {
+      "id": "TKT-1005",
+      "title": "New workstation installation in Cyber Cell",
+      "description": "Need to configure and install two new high-performance systems for forensic analysis.",
+      "category": "Hardware",
+      "priority": "Low",
+      "status": "In Progress",
+      "assignedTo": "Tech Support Team",
+      "createdAt": "2026-07-02T08:00:00Z",
+      "updatedAt": "2026-07-02T09:00:00Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "admin",
+      "name": "Admin User",
+      "password": "cctns@123",
+      "role": "admin"
+    },
+    {
+      "id": "Saurabh singh",
+      "name": "Saurabh Singh",
+      "password": "Saurabh singh",
+      "role": "engineer"
+    },
+    {
+      "id": "Deepak Shukla",
+      "name": "Deepak Shukla",
+      "password": "Deepak Shukla",
+      "role": "engineer"
+    },
+    {
+      "id": "Adarsh Kumar",
+      "name": "Adarsh Kumar",
+      "password": "Adarsh Kumar",
+      "role": "engineer"
+    },
+    {
+      "id": "Prakher Singh",
+      "name": "Prakher Singh",
+      "password": "Prakher Singh",
+      "role": "engineer"
+    }
+  ]
+}
