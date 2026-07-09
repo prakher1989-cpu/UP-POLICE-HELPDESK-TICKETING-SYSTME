@@ -36,7 +36,7 @@ export default function KanbanBoard({ tickets, refreshData, userRole, userName }
     if (!draggedTicket || draggedTicket.status === status) return;
 
     try {
-      await fetch(`http://localhost:5000/api/tickets/${draggedTicket.id}`, {
+      await fetch(`https://up-police-helpdesk-ticketing-system.onrender.com/api/tickets/${draggedTicket.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status, updatedBy: userName })

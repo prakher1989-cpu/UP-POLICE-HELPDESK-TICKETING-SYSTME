@@ -98,7 +98,7 @@ function App() {
     // Simulate secure network delay
     setTimeout(async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/users/login', {
+        const res = await fetch('https://up-police-helpdesk-ticketing-system.onrender.com/api/users/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userId, password })
@@ -129,7 +129,7 @@ function App() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/users/register', {
+      const res = await fetch('https://up-police-helpdesk-ticketing-system.onrender.com/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: newUserId, name: newUserName, password: newPassword })
@@ -169,7 +169,7 @@ function App() {
       return setLoginError('New passwords do not match');
     }
     try {
-      const res = await fetch('http://localhost:5000/api/users/password', {
+      const res = await fetch('https://up-police-helpdesk-ticketing-system.onrender.com/api/users/password', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, oldPassword, newPassword })
@@ -208,7 +208,7 @@ function App() {
       setLoading(true);
       setError(null);
       
-      const ticketsRes = await fetch('http://localhost:5000/api/tickets');
+      const ticketsRes = await fetch('https://up-police-helpdesk-ticketing-system.onrender.com/api/tickets');
 
       if (!ticketsRes.ok) {
         throw new Error('Failed to fetch data from backend. Make sure the Node server is running.');
@@ -223,7 +223,7 @@ function App() {
       }
 
       // Fetch pre-calculated stats from SQL Database via backend
-      const statsRes = await fetch(`http://localhost:5000/api/stats?userRole=${userRole}&userName=${encodeURIComponent(userName)}`);
+      const statsRes = await fetch(`https://up-police-helpdesk-ticketing-system.onrender.com/api/stats?userRole=${userRole}&userName=${encodeURIComponent(userName)}`);
       if (statsRes.ok) {
         const dbStats = await statsRes.json();
         setStats(dbStats);
@@ -278,7 +278,7 @@ function App() {
 
       const ticketPayload = { ...newTicket, attachmentUrl: uploadedUrl };
 
-      const res = await fetch('http://localhost:5000/api/tickets', {
+      const res = await fetch('https://up-police-helpdesk-ticketing-system.onrender.com/api/tickets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

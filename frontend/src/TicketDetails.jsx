@@ -15,13 +15,13 @@ export default function TicketDetails({ tickets, userRole, refreshData, userName
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/users')
+    fetch('https://up-police-helpdesk-ticketing-system.onrender.com/api/users')
       .then(res => res.json())
       .then(data => setUsers(data))
       .catch(err => console.error("Failed to fetch users", err));
       
     if (id) {
-      fetch(`http://localhost:5000/api/tickets/${id}/history`)
+      fetch(`https://up-police-helpdesk-ticketing-system.onrender.com/api/tickets/${id}/history`)
         .then(res => res.json())
         .then(data => setHistory(data))
         .catch(err => console.error("Failed to fetch history", err));
@@ -44,7 +44,7 @@ export default function TicketDetails({ tickets, userRole, refreshData, userName
   const handleDelete = async () => {
     if (window.confirm("Are you sure you want to permanently delete this ticket?")) {
       try {
-        await fetch(`http://localhost:5000/api/tickets/${id}`, { method: 'DELETE' });
+        await fetch(`https://up-police-helpdesk-ticketing-system.onrender.com/api/tickets/${id}`, { method: 'DELETE' });
         refreshData();
         navigate('/');
       } catch (err) {
@@ -58,7 +58,7 @@ export default function TicketDetails({ tickets, userRole, refreshData, userName
   const handleSubmit = async () => {
     try {
       const newStatus = resolvedBy ? "Resolved" : ticket.status;
-      await fetch(`http://localhost:5000/api/tickets/${id}`, {
+      await fetch(`https://up-police-helpdesk-ticketing-system.onrender.com/api/tickets/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ assignedTo, resolvedBy, status: newStatus, updatedBy: userName })

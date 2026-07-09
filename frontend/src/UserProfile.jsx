@@ -22,7 +22,7 @@ export default function UserProfile({ userId, userName, userRole, tickets }) {
     }
     
     try {
-      const res = await fetch('http://localhost:5000/api/users/password', {
+      const res = await fetch('https://up-police-helpdesk-ticketing-system.onrender.com/api/users/password', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, oldPassword, newPassword })
