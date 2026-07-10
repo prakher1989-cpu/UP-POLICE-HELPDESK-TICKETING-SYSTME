@@ -219,7 +219,7 @@ function App() {
       // Filter tickets based on role
       let userTickets = allTickets;
       if (userRole !== 'admin') {
-        userTickets = allTickets.filter(t => t.assignedTo === userName || t.resolvedBy === userName);
+        userTickets = allTickets.filter(t => t.assignedTo === userName || t.resolvedBy === userName || t.name === userName);
       }
 
       // Fetch pre-calculated stats from SQL Database via backend
