@@ -101,7 +101,7 @@ function App() {
         const res = await fetch('https://up-police-helpdesk-ticketing-system.onrender.com/api/users/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId, password })
+          body: JSON.stringify({ userId: userId.trim().toLowerCase(), password })
         });
         if (res.ok) {
           const data = await res.json();
