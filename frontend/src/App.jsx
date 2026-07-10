@@ -276,7 +276,7 @@ function App() {
         }
       }
 
-      const ticketPayload = { ...newTicket, attachmentUrl: uploadedUrl };
+      const ticketPayload = { ...newTicket, name: userName, attachmentUrl: uploadedUrl };
 
       const res = await fetch('https://up-police-helpdesk-ticketing-system.onrender.com/api/tickets', {
         method: 'POST',
