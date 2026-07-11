@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Ticket as TicketIcon, Clock, AlertTriangle, CheckCircle, MonitorSmartphone, MapPin, User, Hash, Printer, Paperclip, Badge } from 'lucide-react';
+import { ArrowLeft, Ticket as TicketIcon, Clock, AlertTriangle, CheckCircle, MonitorSmartphone, MapPin, User, Hash, Printer, Paperclip, Badge, Download } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 export default function TicketDetails({ tickets, userRole, refreshData, userName }) {
   const { id } = useParams();
@@ -72,6 +74,26 @@ export default function TicketDetails({ tickets, userRole, refreshData, userName
     }
   };
 
+  const downloadPDF = async () => {
+    const element = document.getElementById('ticket-content');
+    if (!element) return;
+    
+    try {
+      const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+      const imgData = canvas.toDataURL('image/png');
+      
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`Ticket_${ticket.id}.pdf`);
+    } catch (error) {
+      console.error("Could not generate PDF", error);
+      alert("Failed to generate PDF. Please try again.");
+    }
+  };
+
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'Critical': return 'text-red-400 bg-red-500/10 border-red-500/20';
@@ -93,7 +115,7 @@ export default function TicketDetails({ tickets, userRole, refreshData, userName
 
   return (
     <main className="flex-1 overflow-x-hidden overflow-y-auto p-8 bg-slate-50 dark:bg-slate-950 font-sans text-slate-800 dark:text-slate-200">
-      <div className="max-w-5xl mx-auto space-y-8">
+      <div id="ticket-content" className="max-w-5xl mx-auto space-y-8 bg-slate-50 dark:bg-slate-950 p-4 rounded-xl">
         
         {/* Print-Only Header (Hidden on screen, visible only when printing) */}
         <div className="hidden print:block text-center border-b-2 border-black pb-4 mb-8">
@@ -124,10 +146,17 @@ export default function TicketDetails({ tickets, userRole, refreshData, userName
           <div className="flex space-x-3 no-print">
             <button 
               onClick={() => window.print()}
-              className="px-6 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-lg transition-all flex items-center"
+              className="px-4 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-lg transition-all flex items-center"
             >
               <Printer className="w-4 h-4 mr-2" />
               Print
+            </button>
+            <button 
+              onClick={downloadPDF}
+              className="px-4 py-2.5 bg-indigo-500/10 hover:bg-indigo-500 text-indigo-500 hover:text-white border border-indigo-500/20 font-bold rounded-lg transition-all flex items-center"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Save PDF
             </button>
             {userRole === 'admin' && (
               <button 

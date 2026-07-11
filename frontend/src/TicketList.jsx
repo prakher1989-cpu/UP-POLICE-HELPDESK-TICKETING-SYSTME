@@ -5,6 +5,8 @@ import {
   Download, RefreshCw, AlertTriangle, FileText, 
   CheckCircle, Clock, Server, MapPin
 } from 'lucide-react';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default function TicketList({ userRole, userName, tickets, loading, fetchTickets }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -128,6 +130,49 @@ export default function TicketList({ userRole, userName, tickets, loading, fetch
     document.body.removeChild(link);
   };
 
+  const exportToPDF = () => {
+    const doc = new jsPDF('landscape');
+    
+    // Add title
+    doc.setFontSize(18);
+    doc.text('UP Police Helpdesk - Ticket Report', 14, 22);
+    
+    // Add date
+    doc.setFontSize(11);
+    doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 30);
+    
+    // Prepare table data
+    const tableColumn = ["ID", "Title", "Status", "Priority", "Category", "District", "Police Station", "Assigned To"];
+    const tableRows = [];
+    
+    filteredTickets.forEach(t => {
+      const ticketData = [
+        t.id,
+        t.title,
+        t.status,
+        t.priority,
+        t.category,
+        t.district || 'N/A',
+        t.policeStation || 'N/A',
+        t.assignedTo || 'Unassigned'
+      ];
+      tableRows.push(ticketData);
+    });
+    
+    // Generate table
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 35,
+      styles: { fontSize: 9 },
+      headStyles: { fillColor: [6, 182, 212] }, // Cyan-500
+      alternateRowStyles: { fillColor: [241, 245, 249] } // Slate-100
+    });
+    
+    // Save PDF
+    doc.save(`UP_Police_Tickets_${new Date().toISOString().split('T')[0]}.pdf`);
+  };
+
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'Critical': return 'bg-red-500/10 text-red-400 border-red-500/20';
@@ -172,7 +217,7 @@ export default function TicketList({ userRole, userName, tickets, loading, fetch
               Download Excel
             </button>
             <button 
-              onClick={() => window.print()}
+              onClick={exportToPDF}
               className="flex items-center px-4 py-2 bg-red-600/10 hover:bg-red-600 text-red-500 hover:text-white rounded-lg text-sm font-bold transition-all border border-red-500/20 hover:shadow-[0_0_15px_rgba(239,68,68,0.3)] hidden sm:flex"
             >
               <FileText className="w-4 h-4 mr-2" />
